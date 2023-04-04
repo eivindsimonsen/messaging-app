@@ -1,6 +1,7 @@
 import "./sass/style.scss";
 import Comment from "./components/Comment";
 import WriteComment from "./components/WriteComment";
+import Reply from "./components/Reply";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       </header>
       <main>
         <Comment />
+        <Reply />
       </main>
       <footer>
         <WriteComment />

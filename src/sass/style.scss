@@ -54,6 +54,10 @@ button {
   color: $GrayishBlue;
 }
 
+img {
+  width: 40px;
+}
+
 // Login section
 header {
   display: flex;
@@ -132,10 +136,6 @@ header {
         gap: 18px;
       }
 
-      & img {
-        width: 40px;
-      }
-
       & button:hover {
         cursor: pointer;
         color: $Lightgrayishblue;
@@ -154,6 +154,44 @@ header {
 }
 
 // Reply card
+.reply {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 15px 15px;
+  border-radius: 6px;
+
+  @media (min-width: 647px) {
+    padding: 25px 30px;
+  }
+
+  @media (max-width: 647px) {
+    flex-direction: column;
+    align-items: flex-end;
+
+    & textarea {
+      width: 100%;
+    }
+  }
+
+  & textarea {
+    flex-grow: 1;
+    font-size: 1.01rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    resize: none;
+    font-family: "Rubik", sans-serif;
+
+    &:focus-visible {
+      border: 1px solid $Moderateblue;
+      outline: none;
+    }
+
+    &:hover {
+      border: 1px solid $Moderateblue;
+    }
+  }
+}
 
 // Write comment card
 .write-comment {
@@ -189,5 +227,22 @@ header {
     @media (max-width: 647px) {
       display: none;
     }
+  }
+}
+
+.cta {
+  background-color: $Moderateblue;
+  width: 105px;
+  height: 40px;
+  font-size: 1.1rem;
+  border: none;
+  color: $White;
+  border-radius: 6px;
+  transition: 0.1s;
+
+  &:hover {
+    background-color: $Lightgrayishblue;
+    cursor: pointer;
+    transition: 0.1s;
   }
 }
