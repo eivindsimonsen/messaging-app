@@ -58,6 +58,16 @@ img {
   width: 40px;
 }
 
+hr {
+  border: 1px solid $Lightgrayishblue;
+  margin: 0px 10px;
+  border-radius: 25px;
+
+  @media (min-width: 647px) {
+    margin: 0px 40px;
+  }
+}
+
 // Login section
 header {
   display: flex;
@@ -71,7 +81,7 @@ header {
   padding: 15px 5px;
   align-items: baseline;
   border-radius: 6px;
-  margin: 15px 0px;
+  margin: 10px 0px;
 
   @media (min-width: 647px) {
     padding: 15px 30px;
@@ -160,6 +170,7 @@ header {
   align-items: flex-start;
   padding: 15px 15px;
   border-radius: 6px;
+  width: 100%;
 
   @media (min-width: 647px) {
     padding: 25px 30px;
@@ -190,6 +201,10 @@ header {
     &:hover {
       border: 1px solid $Moderateblue;
     }
+  }
+
+  &-spacing {
+    display: flex;
   }
 }
 
