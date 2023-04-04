@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function WriteComment() {
-  return (
-    <div>WriteComment</div>
-  )
+  return <div className="write-comment">WriteComment</div>;
 }
 
-export default WriteComment
+export default WriteComment;

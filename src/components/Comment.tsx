@@ -1,26 +1,51 @@
+import image from "../assets/image-amyrobson.png";
+
 function Comment() {
   return (
     <>
       <div className="comment">
-        <div className="comment-likes">
-          <button>+</button>
+        <div className="comment-likes comment-likes-desktop">
+          <button>
+            <i className="fa-solid fa-plus"></i>
+          </button>
           <p>12</p>
-          <button>-</button>
+          <button>
+            <i className="fa-solid fa-minus"></i>
+          </button>
         </div>
         <div className="comment-contents">
           <div className="comment-contents-details">
             <div>
               <img
-                src="../assets/image-amyrobson.png"
+                src={image}
                 alt=""
               />
-              <p>Username</p>
-              <p>1 Month ago</p>
+              <p className="username">username</p>
+              <p className="active-since">1 Month ago</p>
             </div>
-            <button>Reply</button>
+            <button className="btn-with-icon reply-btn reply-btn-desktop">
+              <i className="fa-solid fa-reply icon-spacing"></i>
+              Reply
+            </button>
           </div>
           <div className="comment-contents-message">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et officiis itaque, accusantium minus nemo enim illo impedit temporibus adipisci magnam! Qui, voluptate cupiditate sequi, neque, deserunt aperiam cum reiciendis eligendi odit mollitia debitis officiis voluptatibus aut facilis veritatis id! Itaque.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quia pariatur velit perferendis? Est deleniti quae sapiente maxime, corrupti eveniet qui? Fuga labore blanditiis aliquid.</p>
+          </div>
+          {/* Mobile specific buttons */}
+          <div className="card-btns-mobile">
+            <div className="comment-likes comment-likes-mobile">
+              <button>
+                <i className="fa-solid fa-plus"></i>
+              </button>
+              <p>12</p>
+              <button>
+                <i className="fa-solid fa-minus"></i>
+              </button>
+            </div>
+            <button className="btn-with-icon reply-btn">
+              <i className="fa-solid fa-reply icon-spacing"></i>
+              Reply
+            </button>
           </div>
         </div>
       </div>

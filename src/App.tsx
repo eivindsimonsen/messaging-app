@@ -5,7 +5,10 @@ import WriteComment from "./components/WriteComment";
 function App() {
   return (
     <>
-      <header>Login</header>
+      <header>
+        <h1>Hello Username</h1>
+        <button>Login</button>
+      </header>
       <main>
         <Comment />
       </main>
