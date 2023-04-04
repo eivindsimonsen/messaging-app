@@ -1,11 +1,19 @@
 import "./sass/style.scss";
+import Comment from "./components/Comment";
+import WriteComment from "./components/WriteComment";
 
 function App() {
   return (
-    <div>
-      <h1>Hello Typescript</h1>
-    </div>
-  )
+    <>
+      <header>Login</header>
+      <main>
+        <Comment />
+      </main>
+      <footer>
+        <WriteComment />
+      </footer>
+    </>
+  );
 }
 
-export default App
+export default App;

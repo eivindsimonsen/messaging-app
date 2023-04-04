@@ -1,23 +1,21 @@
 // Variables
-// Primary
-
+// Primary colors
 $Moderateblue: hsl(238, 40%, 52%);
 $SoftRed: hsl(358, 79%, 66%);
 $Lightgrayishblue: hsl(239, 57%, 85%);
 $Palered: hsl(357, 100%, 86%);
 
-// Neutral
-
+// Neutral colors
 $Darkblue: hsl(212, 24%, 26%);
 $GrayishBlue: hsl(211, 10%, 45%);
 $Lightgray: hsl(223, 19%, 93%);
 $Verylightgray: hsl(228, 33%, 97%);
 $White: hsl(0, 0%, 100%);
 
-html,
+// Globals
 body {
-  margin: 0;
   font-family: "Rubik", sans-serif;
+  background-color: $Lightgray;
 }
 
 * {
@@ -25,8 +23,27 @@ body {
   margin: 0;
 }
 
-div {
-  height: 100vh;
-  display: grid;
-  place-content: center;
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px 510px;
+
+  & > * {
+    width: 100%;
+  }
 }
+
+// Login section
+header {
+  text-align: right;
+}
+
+// Comment card
+.comment {
+  background-color: $White;
+}
+
+// Reply card
+
+// Write comment
