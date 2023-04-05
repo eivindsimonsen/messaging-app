@@ -1,7 +1,13 @@
 import image from "../assets/image-maxblagun.png";
 
-function Reply({ reply, isReply }) {
-  console.log(reply);
+type PassFunc = {
+  isReply?: boolean;
+  reply?: boolean;
+};
+
+function Reply(props: PassFunc) {
+  const { reply, isReply } = props;
+
   return (
     <>
       {reply && (

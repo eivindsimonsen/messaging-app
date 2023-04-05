@@ -1,6 +1,13 @@
 import image from "../assets/image-amyrobson.png";
 
-function Comment({ toggleReply, isReply }) {
+type PassFunc = {
+  toggleReply?: () => void;
+  isReply?: boolean;
+};
+
+function Comment(props: PassFunc) {
+  const { toggleReply, isReply } = props;
+
   return (
     <>
       <div className={isReply ? "reply-spacing" : ""}>
