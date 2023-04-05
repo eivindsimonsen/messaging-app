@@ -164,7 +164,8 @@ header {
 }
 
 // Reply card
-.reply {
+.reply,
+.write-comment {
   display: flex;
   gap: 20px;
   align-items: flex-start;
