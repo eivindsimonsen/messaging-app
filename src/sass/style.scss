@@ -68,6 +68,10 @@ hr {
   }
 }
 
+ul {
+  padding: 0;
+}
+
 // Login section
 header {
   display: flex;
@@ -158,6 +162,9 @@ header {
 
       & p {
         margin-top: 6px;
+        // These lines makes sure new lines are added correctly
+        white-space: pre-line;
+        line-break: anywhere;
       }
     }
   }
@@ -256,9 +263,12 @@ header {
   border-radius: 6px;
   transition: 0.1s;
 
-  &:hover {
-    background-color: $Lightgrayishblue;
-    cursor: pointer;
-    transition: 0.1s;
+  // Makes sure the hover effect doesn't stick on mobile devices
+  @media (hover: hover) {
+    &:hover {
+      background-color: $Lightgrayishblue;
+      cursor: pointer;
+      transition: 0.1s;
+    }
   }
 }

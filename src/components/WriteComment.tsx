@@ -1,26 +1,37 @@
 import image from "../assets/image-maxblagun.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { db } from "../firebase";
-import { query, collection, onSnapshot } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 
-function WriteComment() {
-  const [todosArr, setTodosArr] = useState<any[]>([]);
+type PassFunc = {
+  setReplyIndex: any;
+};
 
-  useEffect(() => {
-    const q = query(collection(db, "test"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let newTodosArr: any[] = [];
-      querySnapshot.forEach((doc) => {
-        newTodosArr.push({ ...doc.data(), id: doc.id });
-      });
-      setTodosArr(newTodosArr);
-      console.log(newTodosArr);
+function WriteComment(props: PassFunc) {
+  const [messageValue, setMessageValue] = useState<string>("");
+  const { setReplyIndex } = props;
+
+  // Create message
+  const createMessage = async (e: any) => {
+    e.preventDefault();
+
+    await addDoc(collection(db, "messages"), {
+      likes: 0,
+      message: messageValue,
+      posted: "04.02.23",
+      profile_image: "link to image",
+      replies: [],
+      username: "Eivind Simonsen",
     });
-    return () => unsubscribe();
-  }, []);
+
+    setMessageValue("");
+    setReplyIndex(null);
+  };
 
   return (
-    <form className="write-comment">
+    <form
+      onSubmit={createMessage}
+      className="write-comment">
       <img
         src={image}
         alt=""
@@ -28,7 +39,9 @@ function WriteComment() {
       <textarea
         name="reply"
         rows={4}
-        placeholder="Replying to username.."></textarea>
+        placeholder="Replying to username.."
+        onChange={(e) => setMessageValue(e.target.value)}
+        value={messageValue}></textarea>
       <button className="cta">SEND</button>
     </form>
   );

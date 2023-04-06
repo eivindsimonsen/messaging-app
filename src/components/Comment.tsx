@@ -1,12 +1,21 @@
 import image from "../assets/image-amyrobson.png";
+import Reply from "./Reply";
 
 type PassFunc = {
-  toggleReply?: () => void;
+  toggleReply?: any;
   isReply?: boolean;
+  reply?: boolean;
+  message: {
+    message: string;
+    replies: any;
+  };
+  index: number | undefined;
+  replyIndex: any;
+  setReplyIndex: any;
 };
 
 function Comment(props: PassFunc) {
-  const { toggleReply, isReply } = props;
+  const { toggleReply, isReply, message, reply, index, replyIndex, setReplyIndex } = props;
 
   return (
     <>
@@ -33,14 +42,17 @@ function Comment(props: PassFunc) {
                 <p className="active-since">1 Month ago</p>
               </div>
               <button
-                onClick={toggleReply}
+                onClick={() => {
+                  toggleReply();
+                  setReplyIndex(index);
+                }}
                 className="btn-with-icon reply-btn reply-btn-desktop">
                 <i className="fa-solid fa-reply icon-spacing"></i>
                 Reply
               </button>
             </div>
             <div className="comment-contents-message">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime quia pariatur velit perferendis? Est deleniti quae sapiente maxime, corrupti eveniet qui? Fuga labore blanditiis aliquid.</p>
+              <p>{message.message}</p>
             </div>
             {/* Mobile specific buttons */}
             <div className="card-btns-mobile">
@@ -60,7 +72,9 @@ function Comment(props: PassFunc) {
             </div>
           </div>
         </div>
+        {reply && index === replyIndex && <Reply />}
       </div>
+      <p>{message.replies}</p>
     </>
   );
 }
