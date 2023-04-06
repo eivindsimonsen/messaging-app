@@ -1,4 +1,6 @@
+import React from "react";
 import image from "../assets/image-amyrobson.png";
+import WriteReply from "./WriteReply";
 import Reply from "./Reply";
 
 type PassFunc = {
@@ -6,8 +8,12 @@ type PassFunc = {
   isReply?: boolean;
   reply?: boolean;
   message: {
+    likes: number;
     message: string;
+    posted: string;
+    profile_image: string;
     replies: any;
+    username: string;
   };
   index: number | undefined;
   replyIndex: any;
@@ -15,18 +21,17 @@ type PassFunc = {
 };
 
 function Comment(props: PassFunc) {
-  const { toggleReply, isReply, message, reply, index, replyIndex, setReplyIndex } = props;
+  const { toggleReply, message, reply, index, replyIndex, setReplyIndex } = props;
 
   return (
     <>
-      <div className={isReply ? "reply-spacing" : ""}>
-        {isReply ? <hr /> : null}
+      <div>
         <div className="comment">
           <div className="comment-likes comment-likes-desktop">
             <button>
               <i className="fa-solid fa-plus"></i>
             </button>
-            <p>12</p>
+            <p>{message.likes}</p>
             <button>
               <i className="fa-solid fa-minus"></i>
             </button>
@@ -38,8 +43,8 @@ function Comment(props: PassFunc) {
                   src={image}
                   alt=""
                 />
-                <p className="username">username</p>
-                <p className="active-since">1 Month ago</p>
+                <p className="username">{message.username}</p>
+                <p className="active-since">{message.posted}</p>
               </div>
               <button
                 onClick={() => {
@@ -60,7 +65,7 @@ function Comment(props: PassFunc) {
                 <button>
                   <i className="fa-solid fa-plus"></i>
                 </button>
-                <p>12</p>
+                <p>{message.likes}</p>
                 <button>
                   <i className="fa-solid fa-minus"></i>
                 </button>
@@ -72,9 +77,9 @@ function Comment(props: PassFunc) {
             </div>
           </div>
         </div>
-        {reply && index === replyIndex && <Reply />}
+        {reply && index === replyIndex && <WriteReply />}
       </div>
-      <p>{message.replies}</p>
+      <Reply message={message.replies} />
     </>
   );
 }

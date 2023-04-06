@@ -7,7 +7,6 @@ import { collection, onSnapshot, query, doc, updateDoc } from "firebase/firestor
 
 function App() {
   const [reply, setReply] = useState(false);
-  const [isReply, setIsReply] = useState(false);
   const [messages, setMessages] = useState([]);
   const [replyIndex, setReplyIndex] = useState(null);
 
@@ -47,7 +46,6 @@ function App() {
               message={message}
               toggleReply={toggleReply}
               reply={reply}
-              isReply={isReply}
               replyIndex={replyIndex}
               setReplyIndex={setReplyIndex}
             />

@@ -216,9 +216,13 @@ header {
   }
 }
 
+.reply-comment {
+  flex-basis: 100%;
+}
+
 // Write comment card
 .write-comment {
-  margin-top: 50px;
+  margin: 50px 0px;
 }
 
 // Icons
