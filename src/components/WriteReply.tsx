@@ -1,7 +1,7 @@
 import image from "../assets/image-maxblagun.png";
 import { useState } from "react";
 import { db } from "../firebase";
-import { doc, arrayUnion, updateDoc } from "firebase/firestore";
+import { doc, arrayUnion, updateDoc, serverTimestamp } from "firebase/firestore";
 
 type PassFunc = {
   message?: any;
@@ -17,13 +17,25 @@ function WriteReply(props: PassFunc) {
   const createReply = async (e: any) => {
     e.preventDefault();
     toggleReply();
-    console.log(captureId);
+
+    const currentDate = new Date();
+    const postDate = currentDate.toLocaleString();
+
+    const daysAgo = Math.round((currentDate.getTime() - Date.parse(postDate)) / (1000 * 60 * 60 * 24));
+
+    let formattedDate = `${daysAgo} days ago`;
+    if (daysAgo === 0) {
+      formattedDate = "today";
+    } else if (daysAgo === 1) {
+      formattedDate = "yesterday";
+    }
+
     await updateDoc(doc(db, "messages", captureId), {
       replies: arrayUnion({
         likes: 0,
         message: replyValue,
-        posted: "04.02.23",
-        profile_image: "link to image",
+        postedDate: formattedDate,
+        profile_image: "https://example.com/profile_image.jpg",
         replies: [],
         username: "Eivind Simonsen",
       }),
@@ -32,8 +44,7 @@ function WriteReply(props: PassFunc) {
 
   return (
     <>
-      <div className="reply-spacing">
-        <hr />
+      <div>
         <form
           onSubmit={createReply}
           className="reply">

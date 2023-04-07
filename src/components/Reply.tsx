@@ -1,7 +1,8 @@
+import { useState } from "react";
 import image from "../assets/image-maxblagun.png";
 
 type PassFunc = {
-  replies: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any }[];
+  replies: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any; postedDate: any; formattedDate: any }[];
 };
 
 function Reply(props: PassFunc) {
@@ -31,7 +32,7 @@ function Reply(props: PassFunc) {
                       alt=""
                     />
                     <p className="username">{replies.username}</p>
-                    <p className="active-since">{replies.posted}</p>
+                    <p className="active-since">{replies.postedDate}</p>
                   </div>
                 </div>
                 <div className="comment-contents-message">

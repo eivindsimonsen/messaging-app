@@ -11,7 +11,7 @@ function App() {
   const [replyIndex, setReplyIndex] = useState(null);
 
   const toggleReply = (index: any) => {
-    setReply(!reply);
+    setReply(true);
     setReplyIndex(index);
   };
 
@@ -27,8 +27,6 @@ function App() {
     });
     return () => unsubscribe();
   }, []);
-
-  console.log(messages);
 
   return (
     <>

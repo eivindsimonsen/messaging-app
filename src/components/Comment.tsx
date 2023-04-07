@@ -10,11 +10,12 @@ type PassFunc = {
   message: {
     likes: number;
     message: string;
-    posted: string;
+    postedDate: string;
     profile_image: string;
     replies: any;
     username: string;
     id: any;
+    formattedDate: any;
   };
   index: number | undefined;
   replyIndex: any;
@@ -46,7 +47,7 @@ function Comment(props: PassFunc) {
                   alt=""
                 />
                 <p className="username">{message.username}</p>
-                <p className="active-since">{message.posted}</p>
+                <p className="active-since">{message.postedDate}</p>
               </div>
               <button
                 onClick={() => {
