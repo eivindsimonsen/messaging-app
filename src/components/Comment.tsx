@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import image from "../assets/image-amyrobson.png";
 import WriteReply from "./WriteReply";
 import Reply from "./Reply";
@@ -14,6 +14,7 @@ type PassFunc = {
     profile_image: string;
     replies: any;
     username: string;
+    id: any;
   };
   index: number | undefined;
   replyIndex: any;
@@ -22,6 +23,7 @@ type PassFunc = {
 
 function Comment(props: PassFunc) {
   const { toggleReply, message, reply, index, replyIndex, setReplyIndex } = props;
+  const [captureId, setCaptureId] = useState(null);
 
   return (
     <>
@@ -50,6 +52,7 @@ function Comment(props: PassFunc) {
                 onClick={() => {
                   toggleReply();
                   setReplyIndex(index);
+                  setCaptureId(message.id);
                 }}
                 className="btn-with-icon reply-btn reply-btn-desktop">
                 <i className="fa-solid fa-reply icon-spacing"></i>
@@ -77,9 +80,15 @@ function Comment(props: PassFunc) {
             </div>
           </div>
         </div>
-        {reply && index === replyIndex && <WriteReply />}
+        {reply && index === replyIndex && (
+          <WriteReply
+            captureId={captureId}
+            message={message}
+            toggleReply={toggleReply}
+          />
+        )}
       </div>
-      <Reply message={message.replies} />
+      <Reply replies={message.replies} />
     </>
   );
 }

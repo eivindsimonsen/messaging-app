@@ -3,7 +3,7 @@ import "./sass/style.scss";
 import Comment from "./components/Comment";
 import WriteComment from "./components/WriteComment";
 import { db } from "./firebase";
-import { collection, onSnapshot, query, doc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 function App() {
   const [reply, setReply] = useState(false);
@@ -11,7 +11,7 @@ function App() {
   const [replyIndex, setReplyIndex] = useState(null);
 
   const toggleReply = (index: any) => {
-    setReply(true);
+    setReply(!reply);
     setReplyIndex(index);
   };
 
@@ -28,6 +28,8 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  console.log(messages);
+
   return (
     <>
       <header>
@@ -36,9 +38,6 @@ function App() {
       </header>
       <main>
         <ul>
-          {/* <Comment toggleReply={toggleReply} /> */}
-          {/* <Reply reply={reply} /> */}
-          {/* <Comment isReply={isReply} /> */}
           {messages.map((message, index) => (
             <Comment
               key={index}

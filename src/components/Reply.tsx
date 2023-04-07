@@ -1,28 +1,17 @@
 import image from "../assets/image-maxblagun.png";
-import WriteReply from "./WriteReply";
-import { useState } from "react";
 
 type PassFunc = {
-  message: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any }[];
+  replies: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any }[];
 };
 
 function Reply(props: PassFunc) {
-  const [subReply, setSubReply] = useState<any>(false);
-  const [subReplyIndex, setSubReplyIndex] = useState<any>(null);
-  const { message } = props;
-
-  const toggleSubReply = (index: any) => {
-    setSubReply(!subReply);
-    setSubReplyIndex(index);
-  };
+  const { replies } = props;
 
   return (
     <>
-      {message.map((replies, index) => (
-        <>
-          <div
-            key={index}
-            className="reply-spacing">
+      {replies.map((replies, index) => (
+        <div key={index}>
+          <div className="reply-spacing">
             <hr />
             <div className="comment reply-comment">
               <div className="comment-likes comment-likes-desktop">
@@ -41,20 +30,12 @@ function Reply(props: PassFunc) {
                       src={image}
                       alt=""
                     />
-                    <p className="username">{replies.test}</p>
-                    <p className="active-since">{replies.test}</p>
+                    <p className="username">{replies.username}</p>
+                    <p className="active-since">{replies.posted}</p>
                   </div>
-                  <button
-                    onClick={() => {
-                      toggleSubReply(index);
-                    }}
-                    className="btn-with-icon reply-btn reply-btn-desktop">
-                    <i className="fa-solid fa-reply icon-spacing"></i>
-                    Reply
-                  </button>
                 </div>
                 <div className="comment-contents-message">
-                  <p>{replies.test}</p>
+                  <p>{replies.message}</p>
                 </div>
                 {/* Mobile specific buttons */}
                 <div className="card-btns-mobile">
@@ -75,8 +56,7 @@ function Reply(props: PassFunc) {
               </div>
             </div>
           </div>
-          {subReply && index === subReplyIndex && <WriteReply />}
-        </>
+        </div>
       ))}
     </>
   );
