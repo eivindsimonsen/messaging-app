@@ -4,11 +4,16 @@ import Comment from "./components/Comment";
 import WriteComment from "./components/WriteComment";
 import { db } from "./firebase";
 import { collection, onSnapshot, query } from "firebase/firestore";
+import GoogleButton from "react-google-button";
+// @ts-ignore
+import { UserAuth } from "./context/AuthContext";
 
 function App() {
   const [reply, setReply] = useState(false);
   const [messages, setMessages] = useState([]);
   const [replyIndex, setReplyIndex] = useState(null);
+
+  const { googleSignIn, logOut, user } = UserAuth();
 
   const toggleReply = (index: any) => {
     setReply(true);
@@ -28,11 +33,44 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  // Sign in
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(user);
+
+  // Sign Out
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <header>
-        <h1>Hello Username</h1>
-        <button>Login</button>
+        <h1>{user?.displayName ? `Hello ${user.displayName}` : "Please log in"}</h1>
+        {user?.displayName ? (
+          <div className="todo-auth-logout">
+            <button
+              onClick={handleSignOut}
+              className="cta">
+              Sign Out
+            </button>
+          </div>
+        ) : (
+          <GoogleButton
+            className="google-button"
+            onClick={handleGoogleSignIn}
+          />
+        )}
       </header>
       <main>
         <ul>
