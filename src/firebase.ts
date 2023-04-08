@@ -8,7 +8,7 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: import.meta.env.DB_PASSWORD,
   authDomain: import.meta.env.AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
+  projectId: "message-app-4483d",
   storageBucket: import.meta.env.STORAGE_BUCKET,
   messagingSenderId: import.meta.env.MESSAGING_SENDER_ID,
   appId: import.meta.env.APP_ID,
