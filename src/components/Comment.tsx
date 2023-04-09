@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import WriteReply from "./WriteReply";
 import Update from "./Update";
 import Reply from "./Reply";
@@ -48,13 +48,19 @@ function Comment(props: PassFunc) {
   // Tagging users with @ will result in color change
   function highlightUsers(message: string) {
     const words = message.split(" ");
-    const highlightedWords = words.map((word) => {
+    const highlightedWords = words.map((word, index) => {
       if (word.startsWith("@")) {
-        return <span className="user-color">{word}</span>;
+        return (
+          <span
+            className="user-color"
+            key={index}>
+            {word}{" "}
+          </span>
+        );
       }
-      return word;
+      return word + " ";
     });
-    return <>{highlightedWords.join(" ")}</>;
+    return <React.Fragment>{highlightedWords}</React.Fragment>;
   }
 
   return (
