@@ -17,7 +17,7 @@ function App() {
   const { googleSignIn, logOut, user } = UserAuth();
 
   const toggleReply = (index: any) => {
-    setReply(true);
+    setReply(!reply);
     setReplyIndex(index);
   };
 
