@@ -20,25 +20,11 @@ function WriteReply(props: PassFunc) {
     e.preventDefault();
     toggleReply();
 
-    const currentDate = new Date();
-    const postDate = currentDate.toLocaleString();
-
-    const daysAgo = Math.round((currentDate.getTime() - Date.parse(postDate)) / (1000 * 60 * 60 * 24));
-
-    let formattedDate = `${daysAgo} days ago`;
-    if (daysAgo === 0) {
-      formattedDate = "today";
-    } else if (daysAgo === 1) {
-      formattedDate = "yesterday";
-    }
-
     await updateDoc(doc(db, "messages", captureId), {
       replies: arrayUnion({
         likes: 0,
         message: replyValue,
-        postedDate: formattedDate,
         profile_image: user.photoURL,
-        replies: [],
         username: user.displayName,
       }),
     });

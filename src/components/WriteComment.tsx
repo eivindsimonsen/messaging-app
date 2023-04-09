@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 // @ts-ignore
 import { UserAuth } from "../context/AuthContext.jsx";
 
@@ -13,28 +13,14 @@ function WriteComment(props: PassFunc) {
   const [messageValue, setMessageValue] = useState<string>("");
   const { setReplyIndex } = props;
 
-  console.log(user);
-
   // Create message
   const createMessage = async (e: any) => {
     e.preventDefault();
 
-    const currentDate = new Date();
-    const postDate = currentDate.toLocaleString();
-
-    const daysAgo = Math.round((currentDate.getTime() - Date.parse(postDate)) / (1000 * 60 * 60 * 24));
-
-    let formattedDate = `${daysAgo} days ago`;
-    if (daysAgo === 0) {
-      formattedDate = "today";
-    } else if (daysAgo === 1) {
-      formattedDate = "yesterday";
-    }
-
     await addDoc(collection(db, "messages"), {
       likes: 0,
       message: messageValue,
-      postedDate: formattedDate,
+      postedDate: serverTimestamp(),
       profile_image: user.photoURL,
       replies: [],
       username: user.displayName,
