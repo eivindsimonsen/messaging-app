@@ -3,13 +3,14 @@ import "./sass/style.scss";
 import Comment from "./components/Comment";
 import WriteComment from "./components/WriteComment";
 import { db } from "./firebase";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, query, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import GoogleButton from "react-google-button";
 // @ts-ignore
 import { UserAuth } from "./context/AuthContext";
 
 function App() {
   const [reply, setReply] = useState(false);
+  const [update, setUpdate] = useState(false);
   const [messages, setMessages] = useState([]);
   const [replyIndex, setReplyIndex] = useState(null);
 
@@ -20,7 +21,12 @@ function App() {
     setReplyIndex(index);
   };
 
-  // Read messages
+  const toggleUpdateReply = (index: any) => {
+    setUpdate(!update);
+    setReplyIndex(index);
+  };
+
+  // Read comments
   useEffect(() => {
     const q = query(collection(db, "messages"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -33,6 +39,22 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  // Update comment
+  const updateComment = async (comment: any) => {
+    await updateDoc(doc(db, "messages", comment.id), {
+      message: comment.message,
+    });
+  };
+
+  // Delete comment
+  const deleteComment = async (id: any) => {
+    const confirmed = window.confirm("This will remove the comment, and all its replies. Do you wish to proceed?");
+
+    if (confirmed) {
+      await deleteDoc(doc(db, "messages", id));
+    }
+  };
+
   // Sign in
   const handleGoogleSignIn = async () => {
     try {
@@ -41,8 +63,6 @@ function App() {
       console.log(error);
     }
   };
-
-  console.log(user);
 
   // Sign Out
   const handleSignOut = async () => {
@@ -56,7 +76,7 @@ function App() {
   return (
     <>
       <header>
-        <h1>{user?.displayName ? `Hello ${user.displayName}` : "Please log in"}</h1>
+        <h1>{user?.displayName ? `Hello ${user.displayName}` : "Join the convo, log in"}</h1>
         {user?.displayName ? (
           <div className="todo-auth-logout">
             <button
@@ -83,6 +103,10 @@ function App() {
               reply={reply}
               replyIndex={replyIndex}
               setReplyIndex={setReplyIndex}
+              deleteComment={deleteComment}
+              updateComment={updateComment}
+              toggleUpdateReply={toggleUpdateReply}
+              update={update}
             />
           ))}
         </ul>

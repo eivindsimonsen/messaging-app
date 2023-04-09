@@ -1,7 +1,8 @@
-import image from "../assets/image-maxblagun.png";
 import { useState } from "react";
 import { db } from "../firebase";
-import { doc, arrayUnion, updateDoc, serverTimestamp } from "firebase/firestore";
+import { doc, arrayUnion, updateDoc } from "firebase/firestore";
+// @ts-ignore
+import { UserAuth } from "../context/AuthContext.jsx";
 
 type PassFunc = {
   message?: any;
@@ -10,7 +11,8 @@ type PassFunc = {
 };
 
 function WriteReply(props: PassFunc) {
-  const { captureId, toggleReply } = props;
+  const { user } = UserAuth();
+  const { captureId, toggleReply, message } = props;
   const [replyValue, setReplyValue] = useState<string>("");
 
   // Update
@@ -35,9 +37,9 @@ function WriteReply(props: PassFunc) {
         likes: 0,
         message: replyValue,
         postedDate: formattedDate,
-        profile_image: "https://example.com/profile_image.jpg",
+        profile_image: user.photoURL,
         replies: [],
-        username: "Eivind Simonsen",
+        username: user.displayName,
       }),
     });
   };
@@ -48,14 +50,23 @@ function WriteReply(props: PassFunc) {
         <form
           onSubmit={createReply}
           className="reply">
-          <img
-            src={image}
-            alt=""
-          />
+          {user?.displayName ? (
+            <img
+              src={user.photoURL}
+              alt=""
+              className="profile-img"
+            />
+          ) : (
+            <img
+              src="https://us.123rf.com/450wm/viktorijareut/viktorijareut1905/viktorijareut190500748/123236862-default-avatar-profile-icon-grey-photo-placeholder.jpg"
+              alt=""
+              className="profile-img"
+            />
+          )}
           <textarea
             name="reply"
             rows={4}
-            placeholder="Replying to username.."
+            placeholder={`@${message.username}`}
             onChange={(e) => setReplyValue(e.target.value)}
             value={replyValue}></textarea>
           <button className="cta">REPLY</button>

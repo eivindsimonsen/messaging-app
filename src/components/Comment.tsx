@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import image from "../assets/image-amyrobson.png";
+import { useState } from "react";
 import WriteReply from "./WriteReply";
+import Update from "./Update";
 import Reply from "./Reply";
+// @ts-ignore
+import { UserAuth } from "../context/AuthContext.jsx";
 
 type PassFunc = {
   toggleReply?: any;
@@ -20,10 +22,15 @@ type PassFunc = {
   index: number | undefined;
   replyIndex: any;
   setReplyIndex: any;
+  deleteComment: any;
+  updateComment: any;
+  toggleUpdateReply: any;
+  update: any;
 };
 
 function Comment(props: PassFunc) {
-  const { toggleReply, message, reply, index, replyIndex, setReplyIndex } = props;
+  const { user } = UserAuth();
+  const { toggleReply, message, reply, index, replyIndex, setReplyIndex, deleteComment, updateComment, toggleUpdateReply, update } = props;
   const [captureId, setCaptureId] = useState(null);
 
   return (
@@ -43,22 +50,45 @@ function Comment(props: PassFunc) {
             <div className="comment-contents-details">
               <div>
                 <img
-                  src={image}
+                  src={message.profile_image}
                   alt=""
+                  className="profile-img"
                 />
                 <p className="username">{message.username}</p>
+                {user?.displayName === message.username && <div className="identifier">you</div>}
                 <p className="active-since">{message.postedDate}</p>
               </div>
-              <button
-                onClick={() => {
-                  toggleReply();
-                  setReplyIndex(index);
-                  setCaptureId(message.id);
-                }}
-                className="btn-with-icon reply-btn reply-btn-desktop">
-                <i className="fa-solid fa-reply icon-spacing"></i>
-                Reply
-              </button>
+              <div>
+                {user?.displayName === message.username && (
+                  <div className="desktop-user-buttons">
+                    <button
+                      onClick={() => deleteComment(message.id)}
+                      className="delete-btn btn-with-icon">
+                      <i className="fa-solid fa-trash icon-spacing"></i>Delete
+                    </button>
+                    <button
+                      onClick={() => {
+                        toggleUpdateReply();
+                        setReplyIndex(index);
+                      }}
+                      className="update-btn btn-with-icon">
+                      <i className="fa-solid fa-pen icon-spacing"></i>Edit
+                    </button>
+                  </div>
+                )}
+                {user?.displayName && (
+                  <button
+                    onClick={() => {
+                      toggleReply();
+                      setReplyIndex(index);
+                      setCaptureId(message.id);
+                    }}
+                    className="btn-with-icon reply-btn reply-btn-desktop">
+                    <i className="fa-solid fa-reply icon-spacing"></i>
+                    Reply
+                  </button>
+                )}
+              </div>
             </div>
             <div className="comment-contents-message">
               <p>{message.message}</p>
@@ -74,10 +104,35 @@ function Comment(props: PassFunc) {
                   <i className="fa-solid fa-minus"></i>
                 </button>
               </div>
-              <button className="btn-with-icon reply-btn">
-                <i className="fa-solid fa-reply icon-spacing"></i>
-                Reply
-              </button>
+              {user?.displayName === message.username && (
+                <div className="mobile-user-buttons">
+                  <button
+                    onClick={() => deleteComment(message.id)}
+                    className="delete-btn btn-with-icon">
+                    <i className="fa-solid fa-trash icon-spacing"></i>
+                  </button>
+                  <button
+                    onClick={() => {
+                      toggleUpdateReply();
+                      setReplyIndex(index);
+                    }}
+                    className="update-btn btn-with-icon">
+                    <i className="fa-solid fa-pen icon-spacing"></i>
+                  </button>
+                </div>
+              )}
+              {user?.displayName && (
+                <button
+                  onClick={() => {
+                    toggleReply();
+                    setReplyIndex(index);
+                    setCaptureId(message.id);
+                  }}
+                  className="btn-with-icon reply-btn">
+                  <i className="fa-solid fa-reply icon-spacing"></i>
+                  Reply
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -86,6 +141,13 @@ function Comment(props: PassFunc) {
             captureId={captureId}
             message={message}
             toggleReply={toggleReply}
+          />
+        )}
+        {update && index === replyIndex && (
+          <Update
+            message={message}
+            updateComment={updateComment}
+            toggleUpdateReply={toggleUpdateReply}
           />
         )}
       </div>

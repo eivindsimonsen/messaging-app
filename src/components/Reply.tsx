@@ -1,16 +1,19 @@
-import { useState } from "react";
-import image from "../assets/image-maxblagun.png";
+// @ts-ignore
+import { UserAuth } from "../context/AuthContext.jsx";
+import { db } from "../firebase.js";
+import { deleteDoc, doc, updateDoc, deleteField, arrayRemove } from "firebase/firestore";
 
 type PassFunc = {
-  replies: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any; postedDate: any; formattedDate: any }[];
+  replies: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any; postedDate: any; formattedDate: any; id: any }[];
 };
 
 function Reply(props: PassFunc) {
   const { replies } = props;
+  const { user } = UserAuth();
 
   return (
     <>
-      {replies.map((replies, index) => (
+      {replies.map((reply, index) => (
         <div key={index}>
           <div className="reply-spacing">
             <hr />
@@ -19,7 +22,7 @@ function Reply(props: PassFunc) {
                 <button>
                   <i className="fa-solid fa-plus"></i>
                 </button>
-                <p>{replies.likes}</p>
+                <p>{reply.likes}</p>
                 <button>
                   <i className="fa-solid fa-minus"></i>
                 </button>
@@ -28,15 +31,17 @@ function Reply(props: PassFunc) {
                 <div className="comment-contents-details">
                   <div>
                     <img
-                      src={image}
+                      src={reply.profile_image}
                       alt=""
+                      className="profile-img"
                     />
-                    <p className="username">{replies.username}</p>
-                    <p className="active-since">{replies.postedDate}</p>
+                    <p className="username">{reply.username}</p>
+                    {user?.displayName === reply.username && <div className="identifier">you</div>}
+                    <p className="active-since">{reply.postedDate}</p>
                   </div>
                 </div>
                 <div className="comment-contents-message">
-                  <p>{replies.message}</p>
+                  <p>{reply.message}</p>
                 </div>
                 {/* Mobile specific buttons */}
                 <div className="card-btns-mobile">
@@ -44,15 +49,11 @@ function Reply(props: PassFunc) {
                     <button>
                       <i className="fa-solid fa-plus"></i>
                     </button>
-                    <p>{replies.likes}</p>
+                    <p>{reply.likes}</p>
                     <button>
                       <i className="fa-solid fa-minus"></i>
                     </button>
                   </div>
-                  <button className="btn-with-icon reply-btn">
-                    <i className="fa-solid fa-reply icon-spacing"></i>
-                    Reply
-                  </button>
                 </div>
               </div>
             </div>
