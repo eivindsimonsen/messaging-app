@@ -2,6 +2,8 @@
 
 This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
+Keep in mind that this was my first attempt at Typescript. I know it's not pretty.
+
 ## Table of contents
 
 - [Overview](#overview)
