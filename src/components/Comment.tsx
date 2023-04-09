@@ -45,8 +45,7 @@ function Comment(props: PassFunc) {
     });
   };
 
-  console.log(message.message);
-
+  // Tagging users with @ will result in color change
   function highlightUsers(message: string) {
     const words = message.split(" ");
     const highlightedWords = words.map((word) => {
