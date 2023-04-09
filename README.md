@@ -10,7 +10,7 @@ This is a solution to the [Interactive comments section challenge on Frontend Me
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
-  - [What I'm proud of](#What-I'm-proud-of)
+  - [What I'm proud of](#What-Im-proud-of)
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
