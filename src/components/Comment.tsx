@@ -45,6 +45,19 @@ function Comment(props: PassFunc) {
     });
   };
 
+  console.log(message.message);
+
+  function highlightUsers(message: string) {
+    const words = message.split(" ");
+    const highlightedWords = words.map((word) => {
+      if (word.startsWith("@")) {
+        return <span className="user-color"> {word} </span>;
+      }
+      return word;
+    });
+    return <>{highlightedWords}</>;
+  }
+
   return (
     <>
       <div>
@@ -123,7 +136,7 @@ function Comment(props: PassFunc) {
               </div>
             </div>
             <div className="comment-contents-message">
-              <p>{message.message}</p>
+              <p>{highlightUsers(message.message)}</p>
             </div>
             {/* Mobile specific buttons */}
             <div className="card-btns-mobile">
