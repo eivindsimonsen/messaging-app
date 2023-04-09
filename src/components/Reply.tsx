@@ -1,8 +1,5 @@
-import { useState } from "react";
 // @ts-ignore
 import { UserAuth } from "../context/AuthContext.jsx";
-import { db } from "../firebase.js";
-import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 
 type PassFunc = {
   replies: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any; postedDate: any; formattedDate: any; id: any }[];
