@@ -107,7 +107,6 @@ function App() {
               updateComment={updateComment}
               toggleUpdateReply={toggleUpdateReply}
               update={update}
-              setReply={setReply}
             />
           ))}
         </ul>

@@ -28,12 +28,11 @@ type PassFunc = {
   updateComment: any;
   toggleUpdateReply: any;
   update: any;
-  setReply: any;
 };
 
 function Comment(props: PassFunc) {
   const { user } = UserAuth();
-  const { toggleReply, message, reply, setReply, index, replyIndex, setReplyIndex, deleteComment, updateComment, toggleUpdateReply, update } = props;
+  const { toggleReply, message, reply, index, replyIndex, setReplyIndex, deleteComment, updateComment, toggleUpdateReply, update } = props;
   const [captureId, setCaptureId] = useState(null);
   const [count, setCount] = useState<number>(message.likes);
   const [plusDisabled, setPlusDisabled] = useState(false);
@@ -120,7 +119,7 @@ function Comment(props: PassFunc) {
                     <button
                       onClick={() => {
                         toggleUpdateReply();
-                        setReply(false);
+
                         setReplyIndex(index);
                       }}
                       className="update-btn btn-with-icon">
