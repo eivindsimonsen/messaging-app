@@ -12,6 +12,18 @@ function Reply(props: PassFunc) {
   const { replies } = props;
   const { user } = UserAuth();
 
+  // Tagging users with @ will result in color change
+  function highlightUsers(message: string) {
+    const words = message.split(" ");
+    const highlightedWords = words.map((word) => {
+      if (word.startsWith("@")) {
+        return <span className="user-color"> {word} </span>;
+      }
+      return word;
+    });
+    return <>{highlightedWords}</>;
+  }
+
   return (
     <>
       {replies.map((reply, index) => (
@@ -32,7 +44,7 @@ function Reply(props: PassFunc) {
                   </div>
                 </div>
                 <div className="comment-contents-message">
-                  <p>{reply.message}</p>
+                  <p>{highlightUsers(reply.message)}</p>
                 </div>
                 {/* Mobile specific buttons */}
                 <div className="card-btns-mobile">
