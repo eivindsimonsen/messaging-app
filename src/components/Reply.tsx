@@ -1,7 +1,8 @@
+import { useState } from "react";
 // @ts-ignore
 import { UserAuth } from "../context/AuthContext.jsx";
 import { db } from "../firebase.js";
-import { deleteDoc, doc, updateDoc, deleteField, arrayRemove } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 
 type PassFunc = {
   replies: { likes: number; message: string; posted: string; profile_image: string; replies: any; username: string; test: string; subReply: any; subReplyIndex: any; postedDate: any; formattedDate: any; id: any }[];
@@ -18,18 +19,9 @@ function Reply(props: PassFunc) {
           <div className="reply-spacing">
             <hr />
             <div className="comment reply-comment">
-              <div className="comment-likes comment-likes-desktop">
-                <button>
-                  <i className="fa-solid fa-plus"></i>
-                </button>
-                <p>{reply.likes}</p>
-                <button>
-                  <i className="fa-solid fa-minus"></i>
-                </button>
-              </div>
               <div className="comment-contents">
                 <div className="comment-contents-details">
-                  <div>
+                  <div className="user-info-spacing">
                     <img
                       src={reply.profile_image}
                       alt=""
@@ -37,7 +29,6 @@ function Reply(props: PassFunc) {
                     />
                     <p className="username">{reply.username}</p>
                     {user?.displayName === reply.username && <div className="identifier">you</div>}
-                    <p className="active-since">{reply.postedDate}</p>
                   </div>
                 </div>
                 <div className="comment-contents-message">

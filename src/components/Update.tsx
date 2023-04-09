@@ -11,8 +11,7 @@ type PassFunc = {
 function Update(props: PassFunc) {
   const { user } = UserAuth();
   const { message, updateComment, toggleUpdateReply } = props;
-  const [updatedReply, setUpdatedReply] = useState("");
-  console.log(updatedReply);
+  const [updatedReply, setUpdatedReply] = useState(message.message);
 
   return (
     <div>
