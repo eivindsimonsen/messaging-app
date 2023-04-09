@@ -3,7 +3,7 @@ import "./sass/style.scss";
 import Comment from "./components/Comment";
 import WriteComment from "./components/WriteComment";
 import { db } from "./firebase";
-import { collection, onSnapshot, query, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, query, deleteDoc, doc, updateDoc, orderBy } from "firebase/firestore";
 import GoogleButton from "react-google-button";
 // @ts-ignore
 import { UserAuth } from "./context/AuthContext";
@@ -28,7 +28,7 @@ function App() {
 
   // Read comments
   useEffect(() => {
-    const q = query(collection(db, "messages"));
+    const q = query(collection(db, "messages"), orderBy("likes", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let messagesArr: any = [];
       querySnapshot.forEach((doc) => {
@@ -76,7 +76,7 @@ function App() {
   return (
     <>
       <header>
-        <h1>{user?.displayName ? `Hello ${user.displayName}` : "Join the convo, log in"}</h1>
+        <h1>{user?.displayName ? `Hello, ${user.displayName}` : "FakeBook"}</h1>
         {user?.displayName ? (
           <div className="todo-auth-logout">
             <button
