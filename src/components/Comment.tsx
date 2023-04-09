@@ -50,11 +50,11 @@ function Comment(props: PassFunc) {
     const words = message.split(" ");
     const highlightedWords = words.map((word) => {
       if (word.startsWith("@")) {
-        return <span className="user-color"> {word} </span>;
+        return <span className="user-color">{word}</span>;
       }
       return word;
     });
-    return <>{highlightedWords}</>;
+    return <>{highlightedWords.join(" ")}</>;
   }
 
   return (
