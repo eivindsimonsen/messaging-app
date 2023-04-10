@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import WriteReply from "./WriteReply";
-import Update from "./Update";
-import Reply from "./Reply";
 // @ts-ignore
 import { UserAuth } from "../context/AuthContext.jsx";
 import { db } from "../firebase";
 import { updateDoc, doc } from "firebase/firestore";
+import WriteReply from "./WriteReply";
+import Update from "./Update";
+import Reply from "./Reply";
+import ModalDelete from "./Modal.jsx";
 
 type PassFunc = {
   toggleReply?: any;
@@ -37,6 +38,7 @@ function Comment(props: PassFunc) {
   const [count, setCount] = useState<number>(message.likes);
   const [plusDisabled, setPlusDisabled] = useState(false);
   const [minusDisabled, setMinusDisabled] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   // Update likes
   const updateLikes = async (x: any, likesCount: number) => {
@@ -110,22 +112,30 @@ function Comment(props: PassFunc) {
               </div>
               <div>
                 {user?.displayName === message.username && (
-                  <div className="desktop-user-buttons">
-                    <button
-                      onClick={() => deleteComment(message.id)}
-                      className="delete-btn btn-with-icon">
-                      <i className="fa-solid fa-trash icon-spacing"></i>Delete
-                    </button>
-                    <button
-                      onClick={() => {
-                        toggleUpdateReply();
-
-                        setReplyIndex(index);
-                      }}
-                      className="update-btn btn-with-icon">
-                      <i className="fa-solid fa-pen icon-spacing"></i>Edit
-                    </button>
-                  </div>
+                  <>
+                    <div className="desktop-user-buttons">
+                      <button
+                        // onClick={() => deleteComment(message.id)}
+                        onClick={() => setModalShow(true)}
+                        className="delete-btn btn-with-icon">
+                        <i className="fa-solid fa-trash icon-spacing"></i>Delete
+                      </button>
+                      <button
+                        onClick={() => {
+                          toggleUpdateReply();
+                          setReplyIndex(index);
+                        }}
+                        className="update-btn btn-with-icon">
+                        <i className="fa-solid fa-pen icon-spacing"></i>Edit
+                      </button>
+                    </div>
+                    <ModalDelete
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                      deleteComment={deleteComment}
+                      message={message}
+                    />
+                  </>
                 )}
                 {user?.displayName && (
                   <button
