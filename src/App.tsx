@@ -48,11 +48,7 @@ function App() {
 
   // Delete comment
   const deleteComment = async (id: any) => {
-    const confirmed = window.confirm("This will remove the comment, and all its replies. Do you wish to proceed?");
-
-    if (confirmed) {
-      await deleteDoc(doc(db, "messages", id));
-    }
+    await deleteDoc(doc(db, "messages", id));
   };
 
   // Sign in
