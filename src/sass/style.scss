@@ -98,6 +98,13 @@ h1 {
   font-size: clamp(1rem, 2.5vw, 1.5rem);
   color: $Moderateblue;
   white-space: nowrap;
+  line-height: inherit;
+  margin: 20px 0px;
+}
+
+p {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 // Login section
@@ -349,6 +356,46 @@ header {
 
     & button {
       font-size: 1.1rem;
+    }
+  }
+}
+
+// Modal
+.modal-content {
+  width: 350px;
+  margin: 0px auto;
+
+  & p {
+    color: $GrayishBlue;
+  }
+}
+
+.modal-footer {
+  justify-content: space-between;
+
+  & button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    color: $White;
+    flex-basis: 45%;
+  }
+}
+
+.modal-btn {
+  &-cancel {
+    background-color: $Darkblue;
+
+    &:hover {
+      background-color: $GrayishBlue;
+    }
+  }
+
+  &-delete {
+    background-color: $SoftRed;
+
+    &:hover {
+      background-color: $Palered;
     }
   }
 }
