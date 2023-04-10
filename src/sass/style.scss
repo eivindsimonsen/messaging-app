@@ -107,6 +107,10 @@ p {
   margin-bottom: auto;
 }
 
+.todo-auth-logout {
+  white-space: nowrap;
+}
+
 // Login section
 header {
   display: flex;
@@ -163,6 +167,7 @@ header {
     &-mobile {
       flex-direction: row;
       height: 40px;
+      width: 115px;
       padding: 10px;
       gap: 10px;
     }
@@ -197,6 +202,7 @@ header {
 
       & p {
         margin-top: 6px;
+        margin-bottom: 10px;
         // These lines makes sure new lines are added correctly
         white-space: pre-line;
         line-break: anywhere;

@@ -50,18 +50,6 @@ function Reply(props: PassFunc) {
                 <div className="comment-contents-message">
                   <p>{highlightUsers(reply.message)}</p>
                 </div>
-                {/* Mobile specific buttons */}
-                <div className="card-btns-mobile">
-                  <div className="comment-likes comment-likes-mobile">
-                    <button>
-                      <i className="fa-solid fa-plus"></i>
-                    </button>
-                    <p>{reply.likes}</p>
-                    <button>
-                      <i className="fa-solid fa-minus"></i>
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

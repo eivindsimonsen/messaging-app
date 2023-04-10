@@ -115,7 +115,6 @@ function Comment(props: PassFunc) {
                   <>
                     <div className="desktop-user-buttons">
                       <button
-                        // onClick={() => deleteComment(message.id)}
                         onClick={() => setModalShow(true)}
                         className="delete-btn btn-with-icon">
                         <i className="fa-solid fa-trash icon-spacing"></i>Delete
@@ -182,7 +181,7 @@ function Comment(props: PassFunc) {
                 {user?.displayName === message.username && (
                   <div>
                     <button
-                      onClick={() => deleteComment(message.id)}
+                      onClick={() => setModalShow(true)}
                       className="delete-btn btn-with-icon">
                       <i className="fa-solid fa-trash icon-spacing"></i>
                     </button>
@@ -208,6 +207,12 @@ function Comment(props: PassFunc) {
                   </button>
                 )}
               </div>
+              <ModalDelete
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                deleteComment={deleteComment}
+                message={message}
+              />
             </div>
           </div>
         </div>
